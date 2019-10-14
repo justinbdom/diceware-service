@@ -10,23 +10,20 @@ import org.springframework.stereotype.Service;
 @Service
 public class DicewareGenerator implements PassphraseGenerator {
 
-
   private final Random rng;
   private final List<String> words;
 
   @Autowired
-  public DicewareGenerator(Random rng, List<String> words) {
+  public DicewareGenerator(Random rng, WordProvider provider) {
     this.rng = rng;
-    this.words = new ArrayList<>(words);
+    this.words = new ArrayList<>(provider.words());
   }
-
-
 
   @Override
   public String[] passphrase(int length) {
     return IntStream.generate(() -> rng.nextInt(words.size()))
         .limit(length)
-        .mapToObj((value) -> words.get(value))
+        .mapToObj(words::get)
         .toArray(String[]::new);
   }
 

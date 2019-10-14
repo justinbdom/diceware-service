@@ -17,25 +17,14 @@ public class DicewareServiceApplication {
     SpringApplication.run(DicewareServiceApplication.class, args);
   }
 
-
   @Bean
   public Random random() {
     return new SecureRandom();
   }
 
   @Bean
-  public List<String> words(ResourceBundle bundle) {
-    List<String> words = new LinkedList<>();
-    for (String key : bundle.keySet()) {
-      words.add(bundle.getString(key));
-    }
-    return words;
-  }
-
-  @Bean
   public ResourceBundle bundle() {
-    return ResourceBundle.getBundle("Wordlist");
+    return ResourceBundle.getBundle("wordlist");
   }
 
 }
-
